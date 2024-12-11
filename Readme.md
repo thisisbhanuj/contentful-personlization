@@ -45,11 +45,7 @@ This POC showcases how personalized content can be dynamically updated in Conten
 - Redshift
 
 ### Install Dependencies
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-repository.git
-   cd your-repository
-   ```
+1. Clone the repository
 
 2. Install the required Node.js dependencies:
    ```bash
