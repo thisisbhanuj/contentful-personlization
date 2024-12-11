@@ -1,0 +1,62 @@
+{
+  "metadata": {
+      "tags": [
+          {
+              "sys": {
+                  "type": "Link",
+                  "linkType": "Tag",
+                  "id": "holiday-special"
+              }
+          }
+      ],
+      "concepts": []
+  },
+  "sys": {
+      "space": {
+          "sys": {
+              "type": "Link",
+              "linkType": "Space",
+              "id": "lkeh4hqwxph5"
+          }
+      },
+      "id": "5ky8FAg2yb6T3ZeFHOqAzB",
+      "type": "Entry",
+      "createdAt": "2024-12-11T06:42:30.738Z",
+      "updatedAt": "2024-12-11T07:01:43.241Z",
+      "environment": {
+          "sys": {
+              "id": "master",
+              "type": "Link",
+              "linkType": "Environment"
+          }
+      },
+      "publishedVersion": 18,
+      "revision": 5,
+      "contentType": {
+          "sys": {
+              "type": "Link",
+              "linkType": "ContentType",
+              "id": "personalization"
+          }
+      },
+      "locale": "en-US"
+  },
+  "fields": {
+      "title": "Holiday Special",
+      "description": "Huge discounts on electronics!",
+      "targetAudience": [
+          "summer",
+          "holiday-special"
+      ],
+      "bannerImage": {
+          "sys": {
+              "type": "Link",
+              "linkType": "Asset",
+              "id": "2ezfM3gUJuFKradR9JgYE5"
+          }
+      },
+      "buttonText": "Shop Now",
+      "buttonLink": "https://www.example.com/sale",
+      "active": true
+  }
+}

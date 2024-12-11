@@ -1,0 +1,29 @@
+{
+  "name": "personlization",
+  "version": "1.0.0",
+  "description": "Application to dynamically update Contentful content vis APIs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "lint": "eslint .",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "build": "echo 'No build step defined for this app!'"
+  },
+  "author": "Bhanuj",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "contentful-management": "^11.40.2",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "eslint": "^9.16.0",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.7",
+    "supertest": "^7.0.0"
+  }
+}

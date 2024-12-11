@@ -1,0 +1,144 @@
+{
+    "name": "Personalization",
+    "description": "Dynamic Content Model for Personalization",
+    "displayField": "title",
+    "fields": [
+      {
+        "id": "title",
+        "name": "Title",
+        "type": "Symbol",
+        "localized": false,
+        "required": true,
+        "validations": [],
+        "defaultValue": {
+          "en-US": "Holiday Sale"
+        },
+        "disabled": false,
+        "omitted": false
+      },
+      {
+        "id": "description",
+        "name": "Description",
+        "type": "Symbol",
+        "localized": false,
+        "required": false,
+        "validations": [],
+        "disabled": false,
+        "omitted": false
+      },
+      {
+        "id": "targetAudience",
+        "name": "Target Audience",
+        "type": "Array",
+        "localized": false,
+        "required": false,
+        "validations": [],
+        "disabled": false,
+        "omitted": false,
+        "items": {
+          "type": "Symbol",
+          "validations": []
+        }
+      },
+      {
+        "id": "bannerImage",
+        "name": "BannerImage",
+        "type": "Link",
+        "localized": false,
+        "required": true,
+        "validations": [
+          {
+            "linkMimetypeGroup": [
+              "image"
+            ]
+          }
+        ],
+        "disabled": false,
+        "omitted": false,
+        "linkType": "Asset"
+      },
+      {
+        "id": "buttonText",
+        "name": "ButtonText",
+        "type": "Symbol",
+        "localized": false,
+        "required": true,
+        "validations": [],
+        "defaultValue": {
+          "en-US": "Shop Now"
+        },
+        "disabled": false,
+        "omitted": false
+      },
+      {
+        "id": "buttonLink",
+        "name": "ButtonLink",
+        "type": "Symbol",
+        "localized": false,
+        "required": true,
+        "validations": [],
+        "disabled": false,
+        "omitted": false
+      },
+      {
+        "id": "active",
+        "name": "Active",
+        "type": "Boolean",
+        "localized": false,
+        "required": false,
+        "validations": [],
+        "defaultValue": {
+          "en-US": true
+        },
+        "disabled": false,
+        "omitted": false
+      }
+    ],
+    "sys": {
+      "space": {
+        "sys": {
+          "type": "Link",
+          "linkType": "Space",
+          "id": "spaceid"
+        }
+      },
+      "id": "personalization",
+      "type": "ContentType",
+      "createdAt": "2024-12-11T06:37:39.639Z",
+      "updatedAt": "2024-12-11T06:37:40.231Z",
+      "environment": {
+        "sys": {
+          "id": "master",
+          "type": "Link",
+          "linkType": "Environment"
+        }
+      },
+      "publishedVersion": 1,
+      "publishedAt": "2024-12-11T06:37:40.231Z",
+      "firstPublishedAt": "2024-12-11T06:37:40.231Z",
+      "createdBy": {
+        "sys": {
+          "type": "Link",
+          "linkType": "User",
+          "id": "4GYlvtcss7729zDJWpQyEr"
+        }
+      },
+      "updatedBy": {
+        "sys": {
+          "type": "Link",
+          "linkType": "User",
+          "id": "4GYlvtcss7729zDJWpQyEr"
+        }
+      },
+      "publishedCounter": 1,
+      "version": 2,
+      "publishedBy": {
+        "sys": {
+          "type": "Link",
+          "linkType": "User",
+          "id": "4GYlvtcss7729zDJWpQyEr"
+        }
+      },
+      "urn": "crn:contentful:::content:spaces/spaceid/environments/master/content_types/personalization"
+    }
+  }
