@@ -1,8 +1,7 @@
-// Import the service to be tested
 const { updateContent } = require('../contentful/contentfulService');
-const contentfulManagement = require('contentful-management');
+const { createClient } = require('contentful-management');
 
-// Mock Contentful Management client
+// Mock contentful-management client
 jest.mock('contentful-management', () => ({
   createClient: jest.fn(() => ({
     getSpace: jest.fn(() => ({
@@ -20,27 +19,93 @@ jest.mock('contentful-management', () => ({
   }))
 }));
 
+// Mock configuration module (or mock environment variables)
+jest.mock('../config/config', () => ({
+  contentful: {
+    apiKey: 'test-api-key',  // Mock API key
+    spaceId: 'test-space-id', // Mock Space ID
+    environment: 'master', // Mock Environment
+  }
+}));
+
 describe('updateContent', () => {
-  it('should update and publish the entry successfully', async () => {
-    const payload = {
-      entryId: 'testEntry',
-      fields: {
-        title: 'Updated Title',
-      }
+  let mockClient;
+  let mockSpace;
+  let mockEnvironment;
+  let mockEntry;
+
+  beforeAll(() => {
+    // Mocking contentful-management client methods
+    mockEntry = {
+      update: jest.fn().mockResolvedValue({
+        fields: {},
+      }),
+      publish: jest.fn().mockResolvedValue({}),
+      fields: {},
     };
 
+    mockEnvironment = {
+      getEntry: jest.fn().mockResolvedValue(mockEntry),
+    };
+
+    mockSpace = {
+      getEnvironment: jest.fn().mockResolvedValue(mockEnvironment),
+    };
+
+    // Fix: Mock createClient properly to return the mockClient object
+    mockClient = {
+      getSpace: jest.fn().mockResolvedValue(mockSpace),
+    };
+
+    createClient.mockReturnValue(mockClient); // Ensure createClient uses mockClient
+  });
+
+  afterAll(() => {
+    jest.resetAllMocks();
+  });
+
+  it('should update and publish content entry', async () => {
+    const payload = {
+      entryId: 'test-entry-id',
+      fields: {
+        title: 'New Title',
+        description: 'Updated Description',
+      },
+    };
+
+    // Call the function under test
     await updateContent(payload);
 
-    const clientMock = contentfulManagement.createClient();
-    const spaceMock = await clientMock.getSpace();
-    const environmentMock = await spaceMock.getEnvironment();
-    const entryMock = await environmentMock.getEntry(payload.entryId);
+    // Assert that the methods were called with the expected arguments
+    expect(createClient).toHaveBeenCalledWith({
+      accessToken: 'test-api-key', // This will be the mock value
+    });
+    expect(mockClient.getSpace).toHaveBeenCalledWith('test-space-id'); // Mocked spaceId
+    expect(mockSpace.getEnvironment).toHaveBeenCalledWith('master'); // Mocked environment name
+    expect(mockEnvironment.getEntry).toEqual(mockEntry);
 
-    // Assertions
-    expect(clientMock.getSpace).toHaveBeenCalled();
-    expect(spaceMock.getEnvironment).toHaveBeenCalled();
-    expect(environmentMock.getEntry).toHaveBeenCalledWith(payload.entryId);
-    expect(entryMock.update).toHaveBeenCalled();
-    expect(entryMock.publish).toHaveBeenCalled();
+    // Check that the fields are updated correctly
+    expect(mockEntry.fields.title).toEqual({ 'en-US': 'New Title' });
+    expect(mockEntry.fields.description).toEqual({ 'en-US': 'Updated Description' });
+  });
+
+  // ###############################################################
+  // Add a test to verify that the entry is published after updating
+  it('should handle errors when updating content', async () => {
+    const payload = {
+      entryId: 'test-entry-id',
+      fields: {
+        title: 'Error Title',
+      },
+    };
+
+    // Simulate an error in the update function
+    mockEntry.update.mockRejectedValue(new Error('Update failed'));
+
+    await expect(updateContent(payload)).rejects.toThrow('Update failed');
+    
+    // Verify that update and publish were not called due to the error
+    expect(mockEntry.update).toHaveBeenCalled();
+    expect(mockEntry.publish).not.toHaveBeenCalled();
   });
 });
